@@ -1,0 +1,29 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark_2</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_2</item>
+        <item name="colorAccent">@color/colorAccent_2</item>
+    </style>
+
+    <style name="AuthActivity" parent="Theme.MaterialComponents.Bridge">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryDark_2</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_2</item>
+        <item name="colorAccent">@color/colorAccent_2</item>
+    </style>
+
+    <style name="UPD_theme" parent="Theme.AppCompat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryDark_2</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_2</item>
+        <item name="colorAccent">@color/colorAccent_2</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="Base.ThemeOverlay.AppCompat.Light" />
+
+</resources>

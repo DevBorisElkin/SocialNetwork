@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments_auth.RegFragment"
+    android:orientation="vertical"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="58">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2223"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Server Status: offline"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textFontWeight="1"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+                android:text="Registration"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"
+
+                />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+                android:ems="10"
+                android:hint="Create login"
+                android:inputType="textPersonName"
+                android:layout_marginTop="5dp"
+                />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+                android:ems="10"
+                android:hint="Create password"
+                android:inputType="textPassword"
+                android:layout_marginTop="5dp"
+                />
+            <EditText
+                android:id="@+id/editText22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+                android:ems="10"
+                android:hint="Confirm password"
+                android:inputType="textPassword"
+                android:layout_marginTop="5dp"
+                />
+
+            <EditText
+                android:id="@+id/editText222"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+                android:ems="10"
+                android:hint="Make up a nickname"
+                android:inputType="textPassword"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Go Ahead"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="55dp"
+
+                />
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50">
+    </FrameLayout>
+</LinearLayout>
