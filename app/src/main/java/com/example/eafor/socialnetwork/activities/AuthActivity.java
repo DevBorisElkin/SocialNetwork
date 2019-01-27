@@ -10,11 +10,20 @@ import com.example.eafor.socialnetwork.R;
 import com.example.eafor.socialnetwork.adapter.SectionsPageAdapter;
 import com.example.eafor.socialnetwork.fragments_auth.LogFragment;
 import com.example.eafor.socialnetwork.fragments_auth.RegFragment;
+import com.example.eafor.socialnetwork.server_connection.ServerStatus;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 public class AuthActivity extends AppCompatActivity {
     SectionsPageAdapter mSectionsPageAdapter;
     ViewPager mViewPager;
     TabLayout tabLayout;
+
+
+
 
 
     @Override
@@ -28,6 +37,12 @@ public class AuthActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        try {
+            new ServerStatus(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

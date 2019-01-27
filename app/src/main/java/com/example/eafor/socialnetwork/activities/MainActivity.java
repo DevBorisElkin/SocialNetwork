@@ -15,10 +15,12 @@ import com.example.eafor.socialnetwork.R;
 import com.example.eafor.socialnetwork.fragments_main.FragmentChat;
 import com.example.eafor.socialnetwork.fragments_main.FragmentMessage;
 import com.example.eafor.socialnetwork.fragments_main.FragmentProfile;
+import com.example.eafor.socialnetwork.server_connection.ServerStatus;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     NavigationView navigationView;
+    ServerStatus serverStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new FragmentMessage()).commit();
             navigationView.setCheckedItem(R.id.nav_message);
         }
+
 
     }
 
