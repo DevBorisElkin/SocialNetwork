@@ -38,11 +38,7 @@ public class AuthActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        try {
-            new ServerStatus(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
@@ -51,5 +47,13 @@ public class AuthActivity extends AppCompatActivity {
         adapter.addFragment(new LogFragment(), "Log in");
         adapter.addFragment(new RegFragment(), "Registration");
         viewPager.setAdapter(adapter);
+    }
+
+    public void checkServerStatus(){
+//        try {
+//            new ServerStatus(this);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

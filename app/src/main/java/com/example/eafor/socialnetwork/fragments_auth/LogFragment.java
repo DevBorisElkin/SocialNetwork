@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.eafor.socialnetwork.activities.AuthActivity;
 import com.example.eafor.socialnetwork.activities.MainActivity;
 import com.example.eafor.socialnetwork.R;
 
@@ -46,8 +47,10 @@ public static final int ACTION_LOGIN=1;
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                getActivity().startActivity(intent);
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                getActivity().startActivity(intent);
+
+                ((AuthActivity)getActivity()).checkServerStatus();
             }
         };
     }
