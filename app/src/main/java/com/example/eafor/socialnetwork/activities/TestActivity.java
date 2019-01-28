@@ -43,12 +43,11 @@ public class TestActivity extends AppCompatActivity {
         btnBreak.setOnClickListener(listener(3));
 
 
-        serverStatus=new ServerStatus(this);
-
-
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        //serverStatus=new ServerStatus(this);
+
 
         handler = new Handler() {
             @Override
@@ -57,6 +56,8 @@ public class TestActivity extends AppCompatActivity {
                 appendText(text);
             }
         };
+
+        serverStatus.tryToAuth();
 
 
     }

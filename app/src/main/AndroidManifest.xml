@@ -12,20 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.AuthActivity"
             android:theme="@style/AuthActivity">
-        </activity>
-        <activity
-            android:name=".activities.MainActivity"
-            android:theme="@style/UPD_theme"/>
-        <activity android:name=".activities.TestActivity"
-            android:theme="@style/UPD_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/UPD_theme"/>
+
+        <activity android:name=".activities.TestActivity"
+            android:theme="@style/UPD_theme">
+
         </activity>
     </application>
 
