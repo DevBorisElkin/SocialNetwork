@@ -1,9 +1,11 @@
 package com.example.eafor.socialnetwork.server_connection;
 
 
+import android.content.Intent;
 import android.os.Message;
 
 import com.example.eafor.socialnetwork.activities.AuthActivity;
+import com.example.eafor.socialnetwork.activities.MainActivity;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,8 +19,11 @@ public class ServerStatus {
     DataInputStream in;
     DataOutputStream out;
     AuthActivity auth_activity;
+    MainActivity main_activity;
     Message msg;
     public int flag=0;
+    public static int currentActivityFlag=1;
+
 
     final String IP_ADDRESS = "192.168.0.104";
     final int PORT = 8189;
@@ -39,6 +44,20 @@ public class ServerStatus {
     public ServerStatus(AuthActivity activity, int flag) {
         this.auth_activity =activity;
         this.flag=flag;
+    }
+    public ServerStatus(AuthActivity activity, int flag, int activityFlag) {
+        this.auth_activity =activity;
+        this.flag=flag;
+        currentActivityFlag=activityFlag;
+    }
+    public ServerStatus(MainActivity activity, int flag) {
+        this.main_activity =activity;
+        this.flag=flag;
+    }
+    public ServerStatus(MainActivity activity, int flag, int activityFlag) {
+        this.main_activity =activity;
+        this.flag=flag;
+        currentActivityFlag=activityFlag;
     }
 
 
@@ -69,38 +88,37 @@ public class ServerStatus {
                 try {
                     while (socket.isConnected()) {
                         String str = in.readUTF();
-                        if (str.startsWith("/authok")) {
-                            //sendMsgToMain(str);
-                            sendMsgToMain("Вы успешно авторизовались!");
+                        if(str.startsWith("/auth_ok")) {
+                            auth_activity.launchActivity();
                             setAuthorized(true);
                             break;
                         } else {
-                            sendMsgToMain(str);
+                                sendMsgToMain(str);
                         }
                     }
                     while (true) {
-                        String str = in.readUTF();
-                        if (str.startsWith("/")) {
-                            if (str.equals("/serverclosed")) break;
-                            if (str.startsWith("/clientslist ")) {
-                                String[] tokens = str.split(" ");
+                            String str = in.readUTF();
+                            if (str.startsWith("/")) {
+                                if (str.equals("/serverclosed")) break;
+                                if (str.startsWith("/clientslist ")) {
+                                    String[] tokens = str.split(" ");
+                                }
+                            } else {
+                                sendMsgToMain(str);
                             }
-                        } else {
-                            sendMsgToMain(str);
                         }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        socket.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        try {
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        setConnected(false);
+                        setAuthorized(false);
+                        sendMsgToMain("/offline");
                     }
-                    setConnected(false);
-                    setAuthorized(false);
-                    sendMsgToMain("/offline");
-                }
             });
             thread.setDaemon(true);
             thread.start();
@@ -135,11 +153,17 @@ public class ServerStatus {
     public void sendMsgToMain(String txt){
         msg = new Message();
         msg.obj = txt;
-        auth_activity.handler.sendMessage(msg);
+        if(currentActivityFlag ==AuthActivity.FLAG_AUTH_ACTIVITY){
+            if(auth_activity!=null&&auth_activity.handler!=null)auth_activity.handler.sendMessage(msg);
+        }else if(currentActivityFlag ==AuthActivity.FLAG_MAIN_ACTIVITY){
+            if(main_activity!=null&&main_activity.handler!=null) main_activity.handler.sendMessage(msg);
+        }
+
     }
 
+
     public void logIn(String login, String password){
-        execQuery("/auth "+login+" "+password);
+        execQuery("/auth_check "+login+" "+password);
     }
 
     public void regIn(String login, String password, String nick){
@@ -149,6 +173,37 @@ public class ServerStatus {
     public void sendMsgToAll(String txt){
         //
     }
+
+    public void reboot(int activityFlag, MainActivity activity){
+        if(main_activity==null) this.main_activity =activity;
+        currentActivityFlag =activityFlag;
+        //auth_activity=null;
+    }
+
+   // public void loggedIn(){
+   //     if(currentActivityFlag==1){
+   //         intent = new Intent(auth_activity, MainActivity.class);
+   //     }
+   //
+   //     intent.putExtra(AuthActivity.NAME_LOGIN, AuthActivity.loginStr);
+   //     intent.putExtra(AuthActivity.NAME_PASSWORD, AuthActivity.passwordStr);
+   //     startActivity(intent);
+   // }
+
+    public void interrupt(){
+        try {
+            //socket.close();
+            auth_activity.subThread.stop();
+            auth_activity=null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+     //   setConnected(false);
+     //   setAuthorized(false);
+     //   sendMsgToMain("/offline");
+    }
+
+
 
 
 }

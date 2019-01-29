@@ -26,6 +26,8 @@ Button btn_login;
 public static final int ACTION_LOGIN=1;
 static TextView serverStatusView;
 
+String loginStr, passwordStr;
+
     public LogFragment() {
         // Required empty public constructor
     }
@@ -65,11 +67,14 @@ static TextView serverStatusView;
                 return new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        loginStr =txtLogin.getText().toString();
+                        passwordStr =txtPassword.getText().toString();
                        // Intent intent = new Intent(getActivity(), MainActivity.class);
                         //startActivity(intent);
-                        if(!txtLogin.getText().toString().equals("")&&!txtPassword.getText().toString().equals("")){
-                            System.out.println("hello");
-                            AuthActivity.getServerStatus().logIn(txtLogin.getText().toString(),txtPassword.getText().toString());
+                        if(!loginStr.equals("")&&!passwordStr.equals("")){
+                            AuthActivity.loginStr=loginStr;
+                            AuthActivity.passwordStr=passwordStr;
+                            AuthActivity.serverStatus.logIn(txtLogin.getText().toString(),txtPassword.getText().toString());
                         }else{
                             Toast.makeText(getContext(),"Fill in all fields first", Toast.LENGTH_SHORT).show();
                         }
@@ -86,6 +91,7 @@ static TextView serverStatusView;
             }
 
     }
+
 
 
 

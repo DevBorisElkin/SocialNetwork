@@ -31,7 +31,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Server Status: offline"
+                android:text="Server status: offline"
                 android:textAlignment="center"
                 android:textFontWeight="1"
                 android:textSize="20dp" />

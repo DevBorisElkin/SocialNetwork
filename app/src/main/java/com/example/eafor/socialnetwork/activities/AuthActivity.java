@@ -1,5 +1,6 @@
 package com.example.eafor.socialnetwork.activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
@@ -30,7 +31,16 @@ public class AuthActivity extends AppCompatActivity {
     public static ServerStatus serverStatus;
     public Handler handler;
     Thread thread;
-    SubThread subThread;
+    public SubThread subThread;
+    public static final String NAME_LOGIN="name_login";
+    public static final String NAME_PASSWORD="name_password";
+    public static final String NAME_NICK="name_nick";
+    public static final int FLAG_AUTH_ACTIVITY=1;
+    public static final int FLAG_MAIN_ACTIVITY=2;
+    public static String loginStr;
+    public static String passwordStr;
+
+    Intent intent;
 
 
 
@@ -51,7 +61,8 @@ public class AuthActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        serverStatus=new ServerStatus(this,2);
+        if(serverStatus!=null)serverStatus.interrupt();
+        serverStatus=null;  serverStatus=new ServerStatus(this,2, FLAG_AUTH_ACTIVITY);
 
 
         handler = new Handler() {
@@ -62,8 +73,9 @@ public class AuthActivity extends AppCompatActivity {
             }
         };
 
+        //serverStatus.reboot(FLAG_AUTH_ACTIVITY);
         serverStatus.tryToAuth();
-        subThread=new SubThread(); subThread.start();
+        subThread=new SubThread(this, 1); subThread.start();
 
     }
 
@@ -88,6 +100,16 @@ public class AuthActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
         }
-
     }
+
+    public void launchActivity(){
+        if(ServerStatus.currentActivityFlag==1){
+            intent = new Intent(this, MainActivity.class);
+        }
+        subThread.stop();
+        intent.putExtra(AuthActivity.NAME_LOGIN, AuthActivity.loginStr);
+        intent.putExtra(AuthActivity.NAME_PASSWORD, AuthActivity.passwordStr);
+        startActivity(intent);
+    }
+
 }
