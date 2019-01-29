@@ -39,6 +39,7 @@ public class AuthActivity extends AppCompatActivity {
     public static final int FLAG_MAIN_ACTIVITY=2;
     public static String loginStr;
     public static String passwordStr;
+    public static String nickStr;
 
     Intent intent;
 
@@ -107,9 +108,12 @@ public class AuthActivity extends AppCompatActivity {
             intent = new Intent(this, MainActivity.class);
         }
         subThread.stop();
+        subThread=null;
         intent.putExtra(AuthActivity.NAME_LOGIN, AuthActivity.loginStr);
         intent.putExtra(AuthActivity.NAME_PASSWORD, AuthActivity.passwordStr);
         startActivity(intent);
     }
+
+
 
 }

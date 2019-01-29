@@ -14,17 +14,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.R;
+import com.example.eafor.socialnetwork.adapter.UserData;
 import com.example.eafor.socialnetwork.fragments_auth.LogFragment;
 import com.example.eafor.socialnetwork.fragments_auth.RegFragment;
 import com.example.eafor.socialnetwork.fragments_main.FragmentChat;
 import com.example.eafor.socialnetwork.fragments_main.FragmentMessage;
 import com.example.eafor.socialnetwork.fragments_main.FragmentProfile;
+import com.example.eafor.socialnetwork.fragments_main.FragmentUsers;
 import com.example.eafor.socialnetwork.server_connection.ServerStatus;
 import com.example.eafor.socialnetwork.server_connection.SubThread;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.example.eafor.socialnetwork.activities.AuthActivity.*;
 
@@ -32,14 +40,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     NavigationView navigationView;
     //ServerStatus serverStatus;
+    public List<UserData> userDataList = new ArrayList<>();
+    public static List<UserData> staticUserDataList;
 
     Intent intent;
     String login, password, nick;
     Context context;
 
     public Handler handler;
-
     SubThread subThread;
+
+    ImageView img_avatar;
+    TextView txt_nickname;
+    public static List<String> list;
+
+    public static List<String> getList(){return list;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             password=intent.getStringExtra(AuthActivity.NAME_PASSWORD);
         }
 
+        img_avatar=navigationView.findViewById(R.id.header_img);
+        txt_nickname=navigationView.findViewById(R.id.header_txt_nick);
+
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -78,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
 
         AuthActivity.serverStatus.interrupt();
-        AuthActivity.serverStatus=null;
+        //AuthActivity.serverStatus=null;
 
         if(serverStatus==null)serverStatus=new ServerStatus(this, FLAG_MAIN_ACTIVITY, FLAG_MAIN_ACTIVITY);
         serverStatus.reboot(FLAG_MAIN_ACTIVITY, this);
@@ -87,7 +106,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //serverStatus.logIn(login, password);
 
         subThread=new SubThread(this, 2); subThread.start();
-        //TODO: connection
+        //serverStatus.logIn(login, password);
+        //serverStatus.getMainInfo();
+        serverStatus.getUsers();
+
+
+
 
         Toast.makeText(this,login+" "+password,Toast.LENGTH_LONG).show();
 
@@ -99,6 +123,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
+            case R.id.nav_users:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentUsers()).commit();
+                break;
             case R.id.nav_message:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new FragmentMessage()).commit();
@@ -135,17 +163,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void appendText(String a){
-
-      // if(a.equals("/online")){
-      //     if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setText("Server status: online");
-      //     if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("Server status: online");
-      // }else if(a.equals("/offline")){
-      //     if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setText("Server status: offline");
-      //     if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("Server status: offline");
-      // }else{
-      //     Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
-      // }
-        if(!a.equals("/offline"))
-        Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
+        if(a.startsWith("/compl_data")){
+            String[]tokens=a.split(" ");
+            list= Arrays.asList(tokens);
+        }else if(a.startsWith("/all_users_data@")){
+            String id, login, password, nickname, avatar, description, status;
+            String[]tokens=a.split("@");
+            for(int i=1;i<tokens.length;i++){
+                String[] params=tokens[i].split(" ");
+                id=params[0];
+                login=params[1];
+                password=params[2];
+                nickname=params[3];
+                avatar=params[4];
+                description=params[5];
+                status=params[6];
+                userDataList.add(new UserData(id,login,password,nickname,avatar,description,status));
+            }
+            staticUserDataList = new ArrayList<>(userDataList);
+        } else if(!a.equals("/offline")) Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
     }
 }

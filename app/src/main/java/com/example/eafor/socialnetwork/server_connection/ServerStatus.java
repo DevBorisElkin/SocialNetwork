@@ -12,6 +12,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class ServerStatus {
@@ -89,6 +92,8 @@ public class ServerStatus {
                     while (socket.isConnected()) {
                         String str = in.readUTF();
                         if(str.startsWith("/auth_ok")) {
+                            String[] tokens = str.split(" ");
+                            AuthActivity.nickStr=tokens[1];
                             auth_activity.launchActivity();
                             setAuthorized(true);
                             break;
@@ -102,6 +107,13 @@ public class ServerStatus {
                                 if (str.equals("/serverclosed")) break;
                                 if (str.startsWith("/clientslist ")) {
                                     String[] tokens = str.split(" ");
+                                }
+                                if(str.startsWith("/compl_data")){
+                                    sendMsgToMain(str);
+                                    //TODO
+                                }
+                                if(str.startsWith("/all_users_data@")){
+                                    sendMsgToMain(str);
                                 }
                             } else {
                                 sendMsgToMain(str);
@@ -127,7 +139,7 @@ public class ServerStatus {
         }
     }
     public void tryToAuth() {
-        if (socket == null || socket.isClosed()||!socket.isConnected()) {
+        if (socket == null || socket.isClosed()||!socket.isConnected()||!getConnected()) {
             connect();
         }
         try {
@@ -170,6 +182,10 @@ public class ServerStatus {
         execQuery("/add_user "+login+" "+password+" "+nick);
     }
 
+    public void getMainInfo(){//TODO:
+        execQuery("/get_main_info "+AuthActivity.nickStr);
+    }
+
     public void sendMsgToAll(String txt){
         //
     }
@@ -193,14 +209,15 @@ public class ServerStatus {
     public void interrupt(){
         try {
             //socket.close();
-            auth_activity.subThread.stop();
+            if(auth_activity.subThread!=null) auth_activity.subThread.stop();
+            auth_activity.subThread=null;
             auth_activity=null;
         } catch (Exception e) {
             e.printStackTrace();
         }
-     //   setConnected(false);
-     //   setAuthorized(false);
-     //   sendMsgToMain("/offline");
+    }
+    public void getUsers(){
+        execQuery("/get_all_users");
     }
 
 

@@ -10,11 +10,12 @@ import static com.example.eafor.socialnetwork.activities.AuthActivity.serverStat
 
 public class SubThread implements Runnable {
     Thread thread;
-    int flag=1;
+    int flag;
     MainActivity mainActivity;
     AuthActivity authActivity;
     Intent intent;
     boolean oneTime=true;
+    boolean running=true;
 
     public SubThread(MainActivity mainActivity, int flag){
         this.flag=flag;
@@ -34,9 +35,9 @@ public class SubThread implements Runnable {
     @Override
     public void run() {
         block:{
-            while (true) {
+            while (running) {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -67,7 +68,9 @@ public class SubThread implements Runnable {
     }
 
     public void stop(){
+        running=false;
         thread.interrupt();
         thread=null;
+
     }
 }
