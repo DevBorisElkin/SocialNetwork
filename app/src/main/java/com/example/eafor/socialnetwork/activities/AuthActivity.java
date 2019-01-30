@@ -28,23 +28,21 @@ public class AuthActivity extends AppCompatActivity {
     SectionsPageAdapter mSectionsPageAdapter;
     ViewPager mViewPager;
     TabLayout tabLayout;
-    String text_output="";
     public static ServerStatus serverStatus;
     public Handler handler;
-    Thread thread;
     public SubThread subThread;
-    public static final String NAME_LOGIN="name_login";
-    public static final String NAME_PASSWORD="name_password";
-    public static final String NAME_NICK="name_nick";
-    public static final String KEY="key7256262";
-    public static final String KEY_CHECKBOX="key84635";
-    public static final String KEY_LOGIN="key94763l";
-    public static final String KEY_PASSWORD="key123325";
-    public static final int FLAG_AUTH_ACTIVITY=1;
-    public static final int FLAG_MAIN_ACTIVITY=2;
-    public static String loginStr;
-    public static String passwordStr;
-    public static String nickStr;
+    public static final String NAME_LOGIN="name_login";           //
+    public static final String NAME_PASSWORD="name_password";     // Data to put into Intent
+    public static final String NAME_NICK="name_nick";             //
+    public static final String KEY="key7256262";            //
+    public static final String KEY_CHECKBOX="key84635";     //
+    public static final String KEY_LOGIN="key94763l";       //keys for SharedPreferences
+    public static final String KEY_PASSWORD="key123325";    //
+    public static final int FLAG_AUTH_ACTIVITY=1;   //
+    public static final int FLAG_MAIN_ACTIVITY=2;   //2 flags that indicate what activity is given to ServerStatus of Thread
+    public static String loginStr;     //login
+    public static String passwordStr;  //password
+    public static String nickStr;      //nick of a current user
     public static SharedPreferences mySharedPref;
     public static boolean checkboxChecked;
 

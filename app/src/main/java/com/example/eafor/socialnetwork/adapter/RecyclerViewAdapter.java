@@ -46,7 +46,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(mContext, listUserData.get(i).nickname, Toast.LENGTH_SHORT).show();
             }
         });
-        viewHolder.userStatus.setText(listUserData.get(i).status);
+        if(listUserData.get(i).status.equals("online")) {
+            viewHolder.userStatus.setText(listUserData.get(i).status);
+        }else{
+            viewHolder.userStatus.setText(listUserData.get(i).last_online);
+        }
 
     }
 

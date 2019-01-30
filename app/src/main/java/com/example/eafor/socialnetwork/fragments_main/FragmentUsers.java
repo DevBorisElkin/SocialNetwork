@@ -23,10 +23,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentUsers extends Fragment {
+public class FragmentUsers extends Fragment_custom {
     TextView textView;
     boolean flag_local=true;
     View view;
+    RecyclerView recyclerView;
 
     public List<UserData> listUserData = new ArrayList<>();
 
@@ -59,10 +60,21 @@ public class FragmentUsers extends Fragment {
     }
 
     private void initRecyclerView(){
-        RecyclerView recyclerView=view.findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(listUserData,getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if(recyclerView==null&view!=null){
+            recyclerView=view.findViewById(R.id.recycler_view);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(listUserData,getContext());
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
+
+    }
+
+    @Override
+    public void update(){
+        listUserData=null;
+        listUserData=MainActivity.staticUserDataList;
+        initRecyclerView();
     }
 
 }

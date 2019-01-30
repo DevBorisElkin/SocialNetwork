@@ -56,8 +56,8 @@ public class SubThread implements Runnable {
                             oneTime=false;
                             break block;
                         }
-
                     }
+                    serverStatus.execQuery("/online_push "+AuthActivity.nickStr);
                 }
             }
         } //end of block

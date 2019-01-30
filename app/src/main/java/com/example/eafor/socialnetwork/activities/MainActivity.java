@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,6 +27,7 @@ import com.example.eafor.socialnetwork.fragments_main.FragmentChat;
 import com.example.eafor.socialnetwork.fragments_main.FragmentMessage;
 import com.example.eafor.socialnetwork.fragments_main.FragmentProfile;
 import com.example.eafor.socialnetwork.fragments_main.FragmentUsers;
+import com.example.eafor.socialnetwork.fragments_main.Fragment_custom;
 import com.example.eafor.socialnetwork.server_connection.ServerStatus;
 import com.example.eafor.socialnetwork.server_connection.SubThread;
 
@@ -41,7 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     //ServerStatus serverStatus;
     public List<UserData> userDataList = new ArrayList<>();
-    public static List<UserData> staticUserDataList;
+    public static List<UserData> staticUserDataList = new ArrayList<>();
+
+
+    //public static List<Fragment_custom> allFragments = new ArrayList<>();
+    //FragmentUsers fragmentUsers;
 
     Intent intent;
     String login, password, nick;
@@ -61,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       // fragmentUsers=new FragmentUsers();
+       // allFragments.add(fragmentUsers);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,11 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(savedInstanceState==null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FragmentMessage()).commit();
-            navigationView.setCheckedItem(R.id.nav_message);
-        }
+
 
         intent=getIntent();
         if(intent!=null){
@@ -111,9 +116,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         serverStatus.getUsers();
 
 
+        if(savedInstanceState==null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentMessage()).commit();
+            navigationView.setCheckedItem(R.id.nav_message);
+        }
 
-
-        Toast.makeText(this,login+" "+password,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,login+" "+password,Toast.LENGTH_LONG).show();
 
 
 
@@ -167,7 +176,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String[]tokens=a.split(" ");
             list= Arrays.asList(tokens);
         }else if(a.startsWith("/all_users_data@")){
-            String id, login, password, nickname, avatar, description, status;
+            userDataList=null; userDataList = new ArrayList<>();
+            String id, login, password, nickname, avatar, description, status, last_online;
             String[]tokens=a.split("@");
             for(int i=1;i<tokens.length;i++){
                 String[] params=tokens[i].split(" ");
@@ -178,9 +188,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 avatar=params[4];
                 description=params[5];
                 status=params[6];
-                userDataList.add(new UserData(id,login,password,nickname,avatar,description,status));
+                last_online=params[7];
+                userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
             }
             staticUserDataList = new ArrayList<>(userDataList);
+
+
+            //if(fragmentUsers!=null)fragmentUsers.updateList();
+           // if(allFragments.size()>0){
+           //     for(Fragment_custom e:allFragments){
+           //         e.update();
+           //     }
+           // }
+
+
+
         } else if(!a.equals("/offline")) Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

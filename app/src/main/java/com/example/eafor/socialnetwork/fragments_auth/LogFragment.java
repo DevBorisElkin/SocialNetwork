@@ -55,6 +55,11 @@ String loginStr, passwordStr;
         checkBox.setOnClickListener(checkboxChoice());
         checkBox.setChecked(AuthActivity.checkboxChecked);
 
+        String savedLogin=AuthActivity.mySharedPref.getString(AuthActivity.KEY_LOGIN,"");
+        String savedPass=AuthActivity.mySharedPref.getString(AuthActivity.KEY_PASSWORD,"");
+        txtLogin.setText(savedLogin);
+        txtPassword.setText(savedPass);
+
         return view;
     }
 
