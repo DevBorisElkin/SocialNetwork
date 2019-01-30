@@ -1,6 +1,7 @@
 package com.example.eafor.socialnetwork.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
@@ -35,11 +36,18 @@ public class AuthActivity extends AppCompatActivity {
     public static final String NAME_LOGIN="name_login";
     public static final String NAME_PASSWORD="name_password";
     public static final String NAME_NICK="name_nick";
+    public static final String KEY="key7256262";
+    public static final String KEY_CHECKBOX="key84635";
+    public static final String KEY_LOGIN="key94763l";
+    public static final String KEY_PASSWORD="key123325";
     public static final int FLAG_AUTH_ACTIVITY=1;
     public static final int FLAG_MAIN_ACTIVITY=2;
     public static String loginStr;
     public static String passwordStr;
     public static String nickStr;
+    public static SharedPreferences mySharedPref;
+    public static boolean checkboxChecked;
+
 
     Intent intent;
 
@@ -78,6 +86,14 @@ public class AuthActivity extends AppCompatActivity {
         serverStatus.tryToAuth();
         subThread=new SubThread(this, 1); subThread.start();
 
+        mySharedPref=getSharedPreferences(AuthActivity.KEY, MODE_PRIVATE);
+        checkboxChecked=mySharedPref.getBoolean(KEY_CHECKBOX, false);
+
+        String savedLogin=mySharedPref.getString(KEY_LOGIN,"");
+        String savedPass=mySharedPref.getString(KEY_PASSWORD,"");
+        if(!savedLogin.equals("")&!savedPass.equals("")){
+            serverStatus.logIn(savedLogin,savedPass);
+        }
     }
 
     public static ServerStatus getServerStatus(){return serverStatus;}

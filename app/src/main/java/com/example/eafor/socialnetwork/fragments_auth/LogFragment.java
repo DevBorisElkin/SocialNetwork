@@ -1,6 +1,7 @@
 package com.example.eafor.socialnetwork.fragments_auth;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -9,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.activities.AuthActivity;
 import com.example.eafor.socialnetwork.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -25,6 +29,8 @@ EditText txtLogin, txtPassword;
 Button btn_login;
 public static final int ACTION_LOGIN=1;
 static TextView serverStatusView;
+CheckBox checkBox;
+
 
 String loginStr, passwordStr;
 
@@ -45,21 +51,29 @@ String loginStr, passwordStr;
         btn_login=view.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(listener(ACTION_LOGIN));
         serverStatusView=view.findViewById(R.id.txt_server_status);
+        checkBox=view.findViewById(R.id.checkBox);
+        checkBox.setOnClickListener(checkboxChoice());
+        checkBox.setChecked(AuthActivity.checkboxChecked);
+
         return view;
     }
 
     @NonNull
-    private View.OnClickListener l2(){
+    private View.OnClickListener checkboxChoice() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                getActivity().startActivity(intent);
+                checkBox.setChecked(!AuthActivity.checkboxChecked);
+                AuthActivity.checkboxChecked=!AuthActivity.checkboxChecked;
 
-                //((AuthActivity)getActivity()).checkServerStatus();
+                SharedPreferences.Editor mEditor=AuthActivity.mySharedPref.edit();
+                mEditor.putBoolean(AuthActivity.KEY_CHECKBOX, checkBox.isChecked());
+                mEditor.apply();
+
             }
         };
     }
+
 
     @NonNull
     private View.OnClickListener listener(int a) {
@@ -69,9 +83,13 @@ String loginStr, passwordStr;
                     public void onClick(View v) {
                         loginStr =txtLogin.getText().toString();
                         passwordStr =txtPassword.getText().toString();
-                       // Intent intent = new Intent(getActivity(), MainActivity.class);
-                        //startActivity(intent);
                         if(!loginStr.equals("")&&!passwordStr.equals("")){
+                            if(checkBox.isChecked()){
+                                SharedPreferences.Editor mEditor=AuthActivity.mySharedPref.edit();
+                                mEditor.putString(AuthActivity.KEY_LOGIN, loginStr);
+                                mEditor.putString(AuthActivity.KEY_PASSWORD, passwordStr);
+                                mEditor.apply();
+                            }
                             AuthActivity.loginStr=loginStr;
                             AuthActivity.passwordStr=passwordStr;
                             AuthActivity.serverStatus.logIn(txtLogin.getText().toString(),txtPassword.getText().toString());
