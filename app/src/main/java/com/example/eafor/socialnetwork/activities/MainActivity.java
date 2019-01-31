@@ -134,8 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_users:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentUsers()).commit();
+                update(0);
                 break;
             case R.id.nav_message:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -205,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
             }
             staticUserDataList = new ArrayList<>(userDataList);
+            update(0);
 
 
 

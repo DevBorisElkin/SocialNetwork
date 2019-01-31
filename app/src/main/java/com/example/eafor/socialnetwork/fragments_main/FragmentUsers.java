@@ -18,6 +18,7 @@ import com.example.eafor.socialnetwork.adapter.RecyclerViewAdapter;
 import com.example.eafor.socialnetwork.adapter.UserData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,41 +41,30 @@ public class FragmentUsers extends Fragment_custom{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(MainActivity.staticUserDataList.size()>0){
-            listUserData=MainActivity.staticUserDataList;
+            listUserData= new ArrayList<>(MainActivity.staticUserDataList);
         }
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_users, container, false);
-
-       // AuthActivity.serverStatus.getUsers();
-        initImageBitmaps();
+        initRecyclerView();
         return view;
-    }
-
-    private void initImageBitmaps(){
-                if(MainActivity.staticUserDataList.size()>0){
-                    listUserData=MainActivity.staticUserDataList;
-                    initRecyclerView();
-                }
-
-
     }
 
     private void initRecyclerView(){
 
-        if(recyclerView==null&view!=null){
+        //if(recyclerView==null&view!=null){
             recyclerView=view.findViewById(R.id.recycler_view);
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(listUserData,getContext());
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }
+        //}
 
     }
 
-    @Override
-    public void update(){
-        listUserData=null;
-        listUserData=MainActivity.staticUserDataList;
-        initRecyclerView();
-    }
+   // @Override
+   // public void update(){
+   //     listUserData=null;
+   //     listUserData=MainActivity.staticUserDataList;
+   //     initRecyclerView();
+   // }
 
 }
