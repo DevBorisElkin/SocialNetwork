@@ -12,7 +12,7 @@ import com.example.eafor.socialnetwork.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentChat extends Fragment {
+public class FragmentChat extends Fragment_custom {
 
 
     public FragmentChat() {

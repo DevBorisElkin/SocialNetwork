@@ -23,11 +23,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentUsers extends Fragment_custom {
+public class FragmentUsers extends Fragment_custom{
     TextView textView;
     boolean flag_local=true;
     View view;
-    RecyclerView recyclerView;
+    public static RecyclerView recyclerView;
 
     public List<UserData> listUserData = new ArrayList<>();
 

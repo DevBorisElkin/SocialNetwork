@@ -19,7 +19,7 @@ import java.util.Arrays;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentProfile extends Fragment {
+public class FragmentProfile extends Fragment_custom {
 TextView textView;
 boolean flag=true;
 

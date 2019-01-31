@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.eafor.socialnetwork.R;
 
 
-public class FragmentMessage extends Fragment {
+public class FragmentMessage extends Fragment_custom {
 
 
     public FragmentMessage() {

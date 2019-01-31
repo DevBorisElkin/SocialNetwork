@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public List<UserData> userDataList = new ArrayList<>();
     public static List<UserData> staticUserDataList = new ArrayList<>();
+    public List<Fragment_custom> fragmentList = new ArrayList<>();
+    FragmentUsers   fragmentUsers   = new FragmentUsers();
+    FragmentChat    fragmentChat    = new FragmentChat();
+    FragmentMessage fragmentMessage = new FragmentMessage();
+    FragmentProfile fragmentProfile = new FragmentProfile();
 
     Intent intent;
     String login, password, nick;
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     ImageView img_avatar;
     TextView txt_nickname;
-    public static List<String> list;
+    public static List<String> list;  //Используются при парсинге списка пользователей
 
     public static List<String> getList(){return list;}
 
@@ -62,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragmentUsers.set_id(0);   fragmentList.add(fragmentUsers);
+        fragmentChat.set_id(1);    fragmentList.add(fragmentChat);
+        fragmentMessage.set_id(2); fragmentList.add(fragmentMessage);
+        fragmentProfile.set_id(3); fragmentList.add(fragmentProfile);
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -147,6 +158,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void update(int id){
+        if(id==0){
+            FragmentUsers fragmentTMP = new FragmentUsers();
+            getSupportFragmentManager().beginTransaction().remove(fragmentList.get(0)).replace(R.id.fragment_container,fragmentTMP).commit();
+            fragmentList.set(0,fragmentTMP);
+            //list.get(0).update();
+        }else{
+            // Доделать позже
+        }
+
     }
 
     @Override
