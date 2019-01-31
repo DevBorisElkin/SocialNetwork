@@ -41,13 +41,9 @@ import static com.example.eafor.socialnetwork.activities.AuthActivity.*;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     NavigationView navigationView;
-    //ServerStatus serverStatus;
+
     public List<UserData> userDataList = new ArrayList<>();
     public static List<UserData> staticUserDataList = new ArrayList<>();
-
-
-    //public static List<Fragment_custom> allFragments = new ArrayList<>();
-    //FragmentUsers fragmentUsers;
 
     Intent intent;
     String login, password, nick;
@@ -67,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // fragmentUsers=new FragmentUsers();
-       // allFragments.add(fragmentUsers);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,17 +96,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
 
         AuthActivity.serverStatus.interrupt();
-        //AuthActivity.serverStatus=null;
+
 
         if(serverStatus==null)serverStatus=new ServerStatus(this, FLAG_MAIN_ACTIVITY, FLAG_MAIN_ACTIVITY);
         serverStatus.reboot(FLAG_MAIN_ACTIVITY, this);
-        //serverStatus.reboot(this,FLAG_MAIN_ACTIVITY);
-        //serverStatus.tryToAuth();
-        //serverStatus.logIn(login, password);
+
 
         subThread=new SubThread(this, 2); subThread.start();
-        //serverStatus.logIn(login, password);
-        //serverStatus.getMainInfo();
         serverStatus.getUsers();
 
 
@@ -122,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_message);
         }
 
-        //Toast.makeText(this,login+" "+password,Toast.LENGTH_LONG).show();
+
 
 
 
@@ -193,13 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             staticUserDataList = new ArrayList<>(userDataList);
 
-
-            //if(fragmentUsers!=null)fragmentUsers.updateList();
-           // if(allFragments.size()>0){
-           //     for(Fragment_custom e:allFragments){
-           //         e.update();
-           //     }
-           // }
 
 
 
