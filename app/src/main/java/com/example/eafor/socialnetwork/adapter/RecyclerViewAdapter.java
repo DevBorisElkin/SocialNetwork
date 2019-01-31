@@ -7,13 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.R;
+import com.example.eafor.socialnetwork.support.AvatarAdapter;
+import com.example.eafor.socialnetwork.support.TimeManager;
+import com.example.eafor.socialnetwork.support.UserData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,7 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if(listUserData.get(i).status.equals("online")) {
             viewHolder.userStatus.setText(listUserData.get(i).status);
         }else{
-            viewHolder.userStatus.setText(listUserData.get(i).last_online);
+            viewHolder.userStatus.setText(TimeManager.parseString(listUserData.get(i).last_online));
         }
 
     }

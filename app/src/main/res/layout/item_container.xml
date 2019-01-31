@@ -24,7 +24,7 @@
         android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="28dp"
         android:text="Nickname"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -33,13 +33,13 @@
 
     <TextView
         android:id="@+id/user_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="34dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
         android:text="status"
         android:textColor="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toBottomOf="@+id/user_nick" />
 </android.support.constraint.ConstraintLayout>

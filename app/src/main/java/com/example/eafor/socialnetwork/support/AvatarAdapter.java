@@ -1,4 +1,4 @@
-package com.example.eafor.socialnetwork.adapter;
+package com.example.eafor.socialnetwork.support;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -15,10 +15,9 @@ import android.widget.TextView;
 import com.example.eafor.socialnetwork.R;
 import com.example.eafor.socialnetwork.activities.MainActivity;
 import com.example.eafor.socialnetwork.adapter.RecyclerViewAdapter;
-import com.example.eafor.socialnetwork.adapter.UserData;
+import com.example.eafor.socialnetwork.support.UserData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

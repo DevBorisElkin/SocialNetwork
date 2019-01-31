@@ -1,8 +1,8 @@
-package com.example.eafor.socialnetwork.adapter;
+package com.example.eafor.socialnetwork.support;
 
 
 public class UserData {
-    String id, login, password, nickname, avatar, description, status, last_online;
+    public String id, login, password, nickname, avatar, description, status, last_online;
 
     public UserData(String id, String login, String password, String nickname, String avatar, String description, String status, String last_online){
         this.id=id;this.login=login;this.password=password;this.nickname=nickname;this.avatar =avatar;this.description=description;this.status=status; this.last_online=last_online;

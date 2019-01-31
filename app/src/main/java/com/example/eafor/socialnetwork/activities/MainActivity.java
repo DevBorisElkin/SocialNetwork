@@ -3,11 +3,9 @@ package com.example.eafor.socialnetwork.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,9 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.R;
-import com.example.eafor.socialnetwork.adapter.UserData;
-import com.example.eafor.socialnetwork.fragments_auth.LogFragment;
-import com.example.eafor.socialnetwork.fragments_auth.RegFragment;
+import com.example.eafor.socialnetwork.support.UserData;
 import com.example.eafor.socialnetwork.fragments_main.FragmentChat;
 import com.example.eafor.socialnetwork.fragments_main.FragmentMessage;
 import com.example.eafor.socialnetwork.fragments_main.FragmentProfile;
@@ -118,16 +114,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if(savedInstanceState==null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FragmentMessage()).commit();
-            navigationView.setCheckedItem(R.id.nav_message);
+            update(0);
+            navigationView.setCheckedItem(R.id.nav_users);
         }
-
-
-
-
-
-
     }
 
     @Override
@@ -204,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
             }
             staticUserDataList = new ArrayList<>(userDataList);
+            if(navigationView.getCheckedItem().getItemId()==R.id.nav_users)
             update(0);
 
 
