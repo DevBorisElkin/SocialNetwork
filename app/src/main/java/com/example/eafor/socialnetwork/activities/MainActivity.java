@@ -150,10 +150,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void update(int id){
         if(id==0){
+            //if(FragmentUsers.recyclerView!=null) FragmentUsers.scrollPosition=FragmentUsers.recyclerView.computeHorizontalScrollOffset();
             FragmentUsers fragmentTMP = new FragmentUsers();
             getSupportFragmentManager().beginTransaction().remove(fragmentList.get(0)).replace(R.id.fragment_container,fragmentTMP).commit();
             fragmentList.set(0,fragmentTMP);
-            //list.get(0).update();
         }else{
             // Доделать позже
         }
@@ -193,8 +193,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
             }
             staticUserDataList = new ArrayList<>(userDataList);
-            if(navigationView.getCheckedItem().getItemId()==R.id.nav_users)
-            update(0);
+            if(navigationView.getCheckedItem().getItemId()==R.id.nav_users){
+                fragmentList.get(0).onSaveInstanceState(FragmentUsers.savedState);
+                update(0);
+            }
+
 
 
 
