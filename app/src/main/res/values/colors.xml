@@ -16,6 +16,17 @@
     <color name="colorRedOffline">#c13c47</color>
 
 
+    <color name="colorBlue1">#98d6ec</color>
+    <color name="colorBlue2">#88c8df</color>
+    <color name="colorBlue3">#a5e0f5</color>
+    <color name="colorBlue4">#87bed2</color>
+
+    <color name="colorGray1">#e7e9ea</color>
+    <color name="colorGray2">#dbdfe1</color>
+
+
+
+
 
 
 </resources>

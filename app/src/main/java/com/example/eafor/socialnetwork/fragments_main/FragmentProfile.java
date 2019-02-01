@@ -34,28 +34,28 @@ boolean flag=true;
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
 
-        textView=view.findViewById(R.id.txt);
-        textView.setText("Push me!");
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AuthActivity.serverStatus.getMainInfo(AuthActivity.nickStr);
-                Thread thread = new Thread(()->{
-                    while (flag){
-                        if(MainActivity.getList()!=null){
-                            flag=false;
-                            String data=MainActivity.getList().toString();
-                            changeTezt(data);
+      //  textView=view.findViewById(R.id.txt);
+      //  textView.setText("Push me!");
+      //  textView.setOnClickListener(new View.OnClickListener() {
+      //      @Override
+      //      public void onClick(View v) {
+      //          AuthActivity.serverStatus.getMainInfo(AuthActivity.nickStr);
+      //          Thread thread = new Thread(()->{
+      //              while (flag){
+      //                  if(MainActivity.getList()!=null){
+      //                      flag=false;
+      //                      String data=MainActivity.getList().toString();
+      //                      changeTezt(data);
 
-                            break;
-                        }
-                    }
-                });
-                thread.setDaemon(true);
-                thread.start();
+      //                      break;
+      //                  }
+      //              }
+      //          });
+      //          thread.setDaemon(true);
+      //          thread.start();
 
-            }
-        });
+      //      }
+      //  });
 
         return view;
     }
