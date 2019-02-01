@@ -20,21 +20,42 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txt_server_status"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="3dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="Server status: offline"
-                android:textAlignment="center"
-                android:textFontWeight="1"
-                android:textSize="20dp" />
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/txt_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Server status: "
+                    android:textAlignment="textEnd"
+                    android:textFontWeight="1"
+                    android:textSize="20dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:text="offline"
+                    android:id="@+id/txt_server_status"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorRedOffline"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

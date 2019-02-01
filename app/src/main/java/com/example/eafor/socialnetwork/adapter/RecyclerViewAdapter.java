@@ -1,6 +1,7 @@
 package com.example.eafor.socialnetwork.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.R;
+import com.example.eafor.socialnetwork.activities.MainActivity;
 import com.example.eafor.socialnetwork.support.AvatarAdapter;
 import com.example.eafor.socialnetwork.support.TimeManager;
 import com.example.eafor.socialnetwork.support.UserData;
@@ -49,6 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
         if(listUserData.get(i).status.equals("online")) {
             viewHolder.userStatus.setText(listUserData.get(i).status);
+            viewHolder.userStatus.setTextColor(mContext.getResources().getColor(R.color.colorGreenOnline));
         }else{
             viewHolder.userStatus.setText(TimeManager.parseString(listUserData.get(i).last_online));
         }

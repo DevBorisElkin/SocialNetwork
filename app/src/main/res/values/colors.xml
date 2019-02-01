@@ -12,5 +12,10 @@
 
     <color name="colorPrimaryDark_3">#51535b</color>
 
+    <color name="colorGreenOnline">#3cc166</color>
+    <color name="colorRedOffline">#c13c47</color>
+
+
+
 
 </resources>

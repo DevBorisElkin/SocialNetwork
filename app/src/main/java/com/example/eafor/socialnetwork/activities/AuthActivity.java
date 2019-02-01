@@ -107,13 +107,18 @@ public class AuthActivity extends AppCompatActivity {
 
     public void appendText(String a){
         if(a.equals("/online")){
-            if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setText("Server status: online");
-            if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("Server status: online");
+            if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setText("online");
+            if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("online");
+            if(LogFragment.getServerStatusView()!=null)  LogFragment.getServerStatusView().setTextColor(getResources().getColor(R.color.colorGreenOnline));
+            if(RegFragment.getServerStatusView()!=null)  RegFragment.getServerStatusView().setTextColor(getResources().getColor(R.color.colorGreenOnline));
+
         }else if(a.equals("/offline")){
-            if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setText("Server status: offline");
-            if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("Server status: offline");
+            if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setText("offline");
+            if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("offline");
+            if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setTextColor(getResources().getColor(R.color.colorRedOffline));
+            if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setTextColor(getResources().getColor(R.color.colorRedOffline));
         }else{
-            Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
         }
     }
 

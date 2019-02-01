@@ -1,5 +1,4 @@
 package com.example.eafor.socialnetwork.support;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -39,12 +38,11 @@ public class TimeManager {
         if(years>0)minutes-=(years*525960);
 
         StringBuilder time = new StringBuilder("time");
-        if(years>0)time.append("$years:"+years);
-        if(months>0)time.append("$months:"+months);
-        if(days>0)time.append("$days:"+days);
-        if(hours>0)time.append("$hours:"+hours);
-        if(minutes>=0)time.append("$minutes:"+minutes);
-
+        /*if(years>0)time.append("$yrs:"+years);        */                   if(years>0)time.append("$years:"+years);
+        /*if(months>0)time.append("$mnths:"+months);    */                   if(months>0)time.append("$months:"+months);
+        /*if(days>0)time.append("$days:"+days);         */                   if(days>0)time.append("$days:"+days);
+        /*if(hours>0)time.append("$hrs:"+hours);        */                   if(hours>0)time.append("$hours:"+hours);
+        /*if(minutes>=0)time.append("$mins:"+minutes);  */                   if(minutes>=0)time.append("$minutes:"+minutes);
         return time.toString();
     }
 
@@ -73,8 +71,9 @@ public class TimeManager {
     }
 
     public static String parseString(String input){
+        StringBuilder builder = new StringBuilder("");
         String token=""; String data = "";
-        StringBuilder builder = new StringBuilder("was online");
+        builder.append("was online");
         ArrayList<Integer> listDollars = new ArrayList<Integer>();
         char character = '$';
         for(int i = 0; i < input.length(); i++){
@@ -103,6 +102,9 @@ public class TimeManager {
             builder.append(" "+data+" "+token);
         }
         builder.append(" ago");
+        if(builder.toString().equals("was online 0 minutes ago")){
+            builder=new StringBuilder("was just online");
+        }
 /**   >>>time$hours:22$minutes:40
  *    >>>was online 22 hours 40 minutes ago   **/
         return builder.toString();

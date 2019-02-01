@@ -45,12 +45,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentChat    fragmentChat    = new FragmentChat();
     FragmentMessage fragmentMessage = new FragmentMessage();
     FragmentProfile fragmentProfile = new FragmentProfile();
+    public static boolean allowUpdate=true;
 
     Intent intent;
     String login, password, nick;
     Context context;
 
-    public Handler handler;
+    public static Handler handler;
     SubThread subThread;
 
     ImageView img_avatar;
@@ -193,13 +194,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
             }
             staticUserDataList = new ArrayList<>(userDataList);
-            if(navigationView.getCheckedItem().getItemId()==R.id.nav_users)
+            if(navigationView.getCheckedItem().getItemId()==R.id.nav_users) {
+                if(allowUpdate){
+                    new Thread(()->{
+                        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+                        update(0);
+                        allowUpdate=false;
+                    }).start();
+
+                }
+                }
+        } else if(a.equals("/code_update_users")){
             update(0);
-
-
-
-
-        } else if(!a.equals("/offline")) Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
+        }else if(!a.equals("/offline")&&!a.startsWith("/all_users")) {//Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
