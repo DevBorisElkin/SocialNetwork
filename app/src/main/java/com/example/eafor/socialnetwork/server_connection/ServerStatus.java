@@ -182,8 +182,8 @@ public class ServerStatus {
         execQuery("/add_user "+login+" "+password+" "+nick);
     }
 
-    public void getMainInfo(){//TODO:
-        execQuery("/get_main_info "+AuthActivity.nickStr);
+    public void getMainInfo(String nick){//TODO:
+        execQuery("/get_main_info "+nick);
     }
 
     public void sendMsgToAll(String txt){

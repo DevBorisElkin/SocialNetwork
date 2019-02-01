@@ -39,7 +39,7 @@ boolean flag=true;
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AuthActivity.serverStatus.getMainInfo();
+                AuthActivity.serverStatus.getMainInfo(AuthActivity.nickStr);
                 Thread thread = new Thread(()->{
                     while (flag){
                         if(MainActivity.getList()!=null){

@@ -1,5 +1,6 @@
 package com.example.eafor.socialnetwork.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -56,20 +57,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     ImageView img_avatar;
     TextView txt_nickname;
-    public static List<String> list;  //Используются при парсинге списка пользователей
+    public static List<String> list;  //Данные пользователя
 
     public static List<String> getList(){return list;}
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentUsers.set_id(0);   fragmentList.add(fragmentUsers);
-        fragmentChat.set_id(1);    fragmentList.add(fragmentChat);
-        fragmentMessage.set_id(2); fragmentList.add(fragmentMessage);
-        fragmentProfile.set_id(3); fragmentList.add(fragmentProfile);
+        initViews(savedInstanceState);
+    }
 
+    private void initViews(Bundle savedInstanceState) {
+        fragmentUsers.set_id(0);
+        fragmentList.add(fragmentUsers);
+        fragmentChat.set_id(1);
+        fragmentList.add(fragmentChat);
+        fragmentMessage.set_id(2);
+        fragmentList.add(fragmentMessage);
+        fragmentProfile.set_id(3);
+        fragmentList.add(fragmentProfile);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -82,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
 
         intent=getIntent();
@@ -104,13 +112,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
 
         AuthActivity.serverStatus.interrupt();
-
-
         if(serverStatus==null)serverStatus=new ServerStatus(this, FLAG_MAIN_ACTIVITY, FLAG_MAIN_ACTIVITY);
         serverStatus.reboot(FLAG_MAIN_ACTIVITY, this);
 
 
-        subThread=new SubThread(this, 2); subThread.start();
+        subThread=new SubThread(this, 2);
+        subThread.start();
         serverStatus.getUsers();
 
 
@@ -135,8 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new FragmentChat()).commit();
                 break;
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentProfile()).commit();
+                update(3);
                 break;
             case R.id.nav_share:
                 Toast.makeText(this, "share_part", Toast.LENGTH_SHORT).show();
@@ -152,9 +158,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void update(int id){
         if(id==0){
             FragmentUsers fragmentTMP = new FragmentUsers();
-            getSupportFragmentManager().beginTransaction().remove(fragmentList.get(0)).replace(R.id.fragment_container,fragmentTMP).commit();
-            fragmentList.set(0,fragmentTMP);
-            //list.get(0).update();
+            getSupportFragmentManager().beginTransaction().remove(fragmentList.get(id)).replace(R.id.fragment_container,fragmentTMP).commit();
+            fragmentList.set(id,fragmentTMP);
+        }else if(id==3){
+            FragmentProfile fragmentTMP = new FragmentProfile();
+            getSupportFragmentManager().beginTransaction().remove(fragmentList.get(id)).replace(R.id.fragment_container,fragmentTMP).commit();
+            fragmentList.set(id,fragmentTMP);
         }else{
             // Доделать позже
         }
@@ -175,39 +184,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void appendText(String a){
         if(a.startsWith("/compl_data")){
-            String[]tokens=a.split(" ");
-            list= Arrays.asList(tokens);
+            oneUserData(a);
         }else if(a.startsWith("/all_users_data@")){
-            userDataList=null; userDataList = new ArrayList<>();
-            String id, login, password, nickname, avatar, description, status, last_online;
-            String[]tokens=a.split("@");
-            for(int i=1;i<tokens.length;i++){
-                String[] params=tokens[i].split(" ");
-                id=params[0];
-                login=params[1];
-                password=params[2];
-                nickname=params[3];
-                avatar=params[4];
-                description=params[5];
-                status=params[6];
-                last_online=params[7];
-                userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
-            }
-            staticUserDataList = new ArrayList<>(userDataList);
-            if(navigationView.getCheckedItem().getItemId()==R.id.nav_users) {
-                if(allowUpdate){
-                    new Thread(()->{
-                        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
-                        update(0);
-                        allowUpdate=false;
-                    }).start();
-
-                }
-                }
+            allUsersData(a);
         } else if(a.equals("/code_update_users")){
             update(0);
         }else if(!a.equals("/offline")&&!a.startsWith("/all_users")) {//Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void allUsersData(String a) {
+        userDataList=null;
+        userDataList = new ArrayList<>();
+        String id, login, password, nickname, avatar, description, status, last_online;
+        String[]tokens=a.split("@");
+        for(int i=1;i<tokens.length;i++){
+            String[] params=tokens[i].split(" ");
+            id=params[0];
+            login=params[1];
+            password=params[2];
+            nickname=params[3];
+            avatar=params[4];
+            description=params[5];
+            status=params[6];
+            last_online=params[7];
+            userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
+        }
+        staticUserDataList = new ArrayList<>(userDataList);
+        if(navigationView.getCheckedItem().getItemId()== R.id.nav_users) {
+            if(allowUpdate){
+                new Thread(()->{
+                    try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+                    update(0);
+                    allowUpdate=false;
+                }).start();
+
+            }
+            }
+    }
+
+    private void oneUserData(String a) {
+        String[]tokens=a.split(" ");
+        list= Arrays.asList(tokens);
     }
 }
 
