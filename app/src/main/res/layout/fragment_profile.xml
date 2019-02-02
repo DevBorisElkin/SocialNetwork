@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments_main.FragmentProfile"
+    android:id="@+id/swipe_layout_profile">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,28 +30,27 @@
                         android:layout_height="150dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/m1"
                         android:id="@+id/profile_image"/>
 
                     <TextView
+                        android:id="@+id/profile_nick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="1dp"
-                        android:text="Wiliam Snoe"
+                        android:text="-"
                         android:textColor="#fff"
                         android:textSize="21sp"
-                        android:textStyle="bold"
-                        android:id="@+id/profile_nick"/>
+                        android:textStyle="bold" />
+
                     <TextView
+                        android:id="@+id/profile_last_online"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="last online"
+                        android:text="-"
                         android:textColor="#fff"
-                        android:textSize="15sp"
-                        android:id="@+id/profile_last_online"
-                         />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -80,14 +82,14 @@
                                 android:textColor="@color/colorGray2"/>
 
                             <TextView
+                                android:id="@+id/profile_messages"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
-                                android:text="125"
+                                android:text="-"
                                 android:textColor="@color/colorGray1"
                                 android:textSize="17sp"
-                                android:textStyle="bold"
-                                android:id="@+id/profile_messages"/>
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -106,14 +108,14 @@
                                 android:textColor="@color/colorGray2"/>
 
                             <TextView
+                                android:id="@+id/profile_painted"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
-                                android:text="1205"
+                                android:text="-"
                                 android:textColor="@color/colorGray1"
                                 android:textSize="17sp"
-                                android:textStyle="bold"
-                                android:id="@+id/profile_painted"/>
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -132,15 +134,14 @@
                                 android:textColor="@color/colorGray2"/>
 
                             <TextView
+                                android:id="@+id/profile_joined"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
-                                android:text="26.11.2019"
+                                android:text="-"
                                 android:textColor="@color/colorGray1"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:id="@+id/profile_joined"
-                                />
+                                android:textStyle="bold" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -216,4 +217,4 @@
         </LinearLayout>
     </ScrollView>
 
-</FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

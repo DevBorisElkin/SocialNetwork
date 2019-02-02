@@ -62,8 +62,6 @@ public class FragmentUsers extends Fragment_custom{
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(listUserData,getContext());
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
     }
 
     @NonNull

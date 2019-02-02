@@ -127,6 +127,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             update(0);
             navigationView.setCheckedItem(R.id.nav_users);
         }
+
+        AuthActivity.serverStatus.getMainInfo(AuthActivity.nickStr);
     }
 
     @Override
@@ -191,8 +193,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             allUsersData(a);
         } else if(a.equals("/code_update_users")){
             update(0);
-        }else if(!a.equals("/offline")&&!a.startsWith("/all_users")) {//Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
-        }
+        }else if(a.equals("/code_update_profile")){
+            update(3);
+        }else if(!a.equals("/offline")&&!a.startsWith("/all_users")) {/*Toast.makeText(this, a,Toast.LENGTH_SHORT).show();*/}
     }
 
     private void allUsersData(String a) {

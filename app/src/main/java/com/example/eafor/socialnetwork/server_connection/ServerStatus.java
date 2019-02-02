@@ -220,6 +220,10 @@ public class ServerStatus {
         execQuery("/get_all_users");
     }
 
+    public void updateUserData(String nick, String data){
+        execQuery("/update_user "+nick+" "+data);
+    }
+
 
 
 
