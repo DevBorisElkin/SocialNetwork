@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         subThread=new SubThread(this, 2);
         subThread.start();
         serverStatus.getUsers();
-
+        serverStatus.getMainInfo(AuthActivity.nickStr);
 
 
         if(savedInstanceState==null) {
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_users);
         }
 
-        AuthActivity.serverStatus.getMainInfo(AuthActivity.nickStr);
+
     }
 
     @Override
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }).start();
 
             }
-            }
+        }
     }
 
     private void oneUserData(String a) {

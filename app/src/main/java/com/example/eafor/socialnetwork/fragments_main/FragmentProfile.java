@@ -124,6 +124,11 @@ Message msg;
                     String txt=text_edit.getText().toString();
                     txt=txt.replace(" ","&");
                     AuthActivity.serverStatus.updateUserData(AuthActivity.nickStr,txt);
+                    Thread thread = new Thread(()->{
+                        try { Thread.sleep(150); } catch (InterruptedException e) { e.printStackTrace(); }
+                        AuthActivity.serverStatus.getMainInfo(AuthActivity.nickStr);
+                    });
+                    thread.start();
                 }
             }
         };
