@@ -28,7 +28,7 @@ public class ServerStatus {
     public static int currentActivityFlag=1;
 
 
-    final String IP_ADDRESS = "192.168.0.101";
+    final String IP_ADDRESS = "192.168.0.100";
     final int PORT = 8189;
 
     private static boolean isAuthorized=false;

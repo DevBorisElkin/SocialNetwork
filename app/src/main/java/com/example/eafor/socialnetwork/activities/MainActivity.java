@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentChat    fragmentChat    = new FragmentChat();
     FragmentMessage fragmentMessage = new FragmentMessage();
     FragmentProfile fragmentProfile = new FragmentProfile();
+    public static UserData oneUserData;  //Данные одного пользователя
     public static boolean allowUpdate=true;
 
     Intent intent;
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         subThread=new SubThread(this, 2);
         subThread.start();
         serverStatus.getUsers();
+
 
 
         if(savedInstanceState==null) {
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void allUsersData(String a) {
         userDataList=null;
         userDataList = new ArrayList<>();
-        String id, login, password, nickname, avatar, description, status, last_online;
+        String id, login, password, nickname, avatar, description, status, last_online, messages, painted, joined, paint_delay;
         String[]tokens=a.split("@");
         for(int i=1;i<tokens.length;i++){
             String[] params=tokens[i].split(" ");
@@ -208,7 +210,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             description=params[5];
             status=params[6];
             last_online=params[7];
-            userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online));
+            messages=params[8];
+            painted = params[9];
+            joined = params[10];
+            paint_delay = params[11];
+            userDataList.add(new UserData(id,login,password,nickname,avatar,description,status,last_online, messages, painted, joined, paint_delay));
         }
         staticUserDataList = new ArrayList<>(userDataList);
         if(navigationView.getCheckedItem().getItemId()== R.id.nav_users) {
@@ -224,8 +230,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void oneUserData(String a) {
-        String[]tokens=a.split(" ");
-        list= Arrays.asList(tokens);
+        String[]params=a.split(" ");
+        String id, login, password, nickname, avatar, description, status, last_online, messages, painted, joined, paint_delay;
+        id=params[0];
+        login=params[1];
+        password=params[2];
+        nickname=params[3];
+        avatar=params[4];
+        description=params[5];
+        status=params[6];
+        last_online=params[7];
+        messages=params[8];
+        painted = params[9];
+        joined = params[10];
+        paint_delay = params[11];
+        oneUserData = new UserData(id,login,password,nickname,avatar,description,status,last_online, messages, painted, joined, paint_delay);
     }
 }
 

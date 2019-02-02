@@ -22,12 +22,13 @@
                     android:background="@drawable/gradient_background"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/m1" />
+                        android:src="@drawable/m1"
+                        android:id="@+id/profile_image"/>
 
                     <TextView
                         android:layout_width="wrap_content"
