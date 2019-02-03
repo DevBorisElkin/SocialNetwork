@@ -2,6 +2,7 @@ package com.example.eafor.socialnetwork.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +19,14 @@ import com.example.eafor.socialnetwork.support.TimeManager;
 import com.example.eafor.socialnetwork.support.UserData;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private List<UserData> listUserData;
     Context mContext;
+    Message msg;
 
     public RecyclerViewAdapter(List<UserData> list, Context mContext) {
         this.listUserData=list;
@@ -46,7 +49,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, listUserData.get(i).nickname, Toast.LENGTH_SHORT).show();
+                msg = new Message();
+                msg.obj = "/code_load_user";
+                MainActivity.chosenUserId=i;
+                MainActivity.handler.sendMessage(msg);
+
             }
         });
         if(listUserData.get(i).status.equals("online")) {

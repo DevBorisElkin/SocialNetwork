@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.R;
+import com.example.eafor.socialnetwork.fragments_main.FragmentDefinedUser;
 import com.example.eafor.socialnetwork.support.UserData;
 import com.example.eafor.socialnetwork.fragments_main.FragmentChat;
 import com.example.eafor.socialnetwork.fragments_main.FragmentMessage;
@@ -42,12 +43,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public List<UserData> userDataList = new ArrayList<>();
     public static List<UserData> staticUserDataList = new ArrayList<>();
     public List<Fragment_custom> fragmentList = new ArrayList<>();
-    FragmentUsers   fragmentUsers   = new FragmentUsers();
-    FragmentChat    fragmentChat    = new FragmentChat();
-    FragmentMessage fragmentMessage = new FragmentMessage();
-    FragmentProfile fragmentProfile = new FragmentProfile();
+    FragmentUsers   fragmentUsers           = new FragmentUsers();
+    FragmentChat    fragmentChat            = new FragmentChat();
+    FragmentMessage fragmentMessage         = new FragmentMessage();
+    FragmentProfile fragmentProfile         = new FragmentProfile();
+    FragmentDefinedUser fragmentDefinedUser = new FragmentDefinedUser();
     public static UserData oneUserData;  //Данные одного пользователя
     public static boolean allowUpdate=true;
+    public static int chosenUserId = 0;
+    public static boolean definedUserOpened=false;
 
     Intent intent;
     String login, password, nick;
@@ -80,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentList.add(fragmentMessage);
         fragmentProfile.set_id(3);
         fragmentList.add(fragmentProfile);
+        fragmentDefinedUser.set_id(4);
+        fragmentList.add(fragmentDefinedUser);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -168,6 +174,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentProfile fragmentTMP = new FragmentProfile();
             getSupportFragmentManager().beginTransaction().remove(fragmentList.get(id)).replace(R.id.fragment_container,fragmentTMP).commit();
             fragmentList.set(id,fragmentTMP);
+        }else if(id==4){
+            FragmentDefinedUser fragmentTMP = new FragmentDefinedUser();
+            getSupportFragmentManager().beginTransaction().remove(fragmentList.get(id)).replace(R.id.fragment_container,fragmentTMP).commit();
+            fragmentList.set(id,fragmentTMP);
         }else{
             // Доделать позже
         }
@@ -178,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
+        } else if(definedUserOpened){
+           definedUserOpened=false;
+           update(0);
         }else{
             super.onBackPressed();
         }
@@ -195,6 +208,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             update(0);
         }else if(a.equals("/code_update_profile")){
             update(3);
+        }else if(a.equals("/code_load_user")){
+            update(4);
         }else if(!a.equals("/offline")&&!a.startsWith("/all_users")) {/*Toast.makeText(this, a,Toast.LENGTH_SHORT).show();*/}
     }
 
