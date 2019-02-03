@@ -15,7 +15,8 @@
 
         <activity
             android:name=".activities.AuthActivity"
-            android:theme="@style/AuthActivity">
+            android:theme="@style/AuthActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +26,10 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/UPD_theme"/>
+            android:theme="@style/UPD_theme"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".activities.TestActivity"
-            android:theme="@style/UPD_theme">
 
-        </activity>
     </application>
 
 </manifest>

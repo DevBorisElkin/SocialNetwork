@@ -1,8 +1,11 @@
 package com.example.eafor.socialnetwork.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -14,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static boolean allowUpdate=true;
     public static int chosenUserId = 0;
     public static boolean definedUserOpened=false;
+
+    static Dialog dialog;
+    Button btn_cancel, btn_ok;
+    TextView txt_quit;
+
 
     Intent intent;
     String login, password, nick;
@@ -191,8 +201,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if(definedUserOpened){
            definedUserOpened=false;
            update(0);
+        }else if(definedUserOpened){
+
         }else{
-            super.onBackPressed();
+            makeLogoutDialog("Would you like to log off?");
         }
     }
 
@@ -263,6 +275,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         joined = params[10];
         paint_delay = params[11];
         oneUserData = new UserData(id,login,password,nickname,avatar,description,status,last_online, messages, painted, joined, paint_delay);
+    }
+
+    public void makeLogoutDialog(String text){
+        dialog=new Dialog(this);
+        dialog.setContentView(R.layout.popup_logout);
+        dialog.setCanceledOnTouchOutside(true);
+        txt_quit=dialog.findViewById(R.id.text_quit);
+        txt_quit.setText(text);
+        btn_cancel=dialog.findViewById(R.id.button_cancel);
+        btn_ok=dialog.findViewById(R.id.button_quit);
+        btn_cancel.setOnClickListener(close());
+        btn_ok.setOnClickListener(logOut());
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    @NonNull
+    private View.OnClickListener logOut() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent=new Intent(MainActivity.this, AuthActivity.class);
+                subThread.stop();
+                subThread=null;
+                launchAuto=false;
+                serverStatus.execQuery("/end");
+                startActivity(intent);
+                dialog=null;
+            }
+        };
+    }
+
+    @NonNull
+    private static View.OnClickListener close() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        };
     }
 }
 

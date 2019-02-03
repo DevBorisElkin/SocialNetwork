@@ -24,6 +24,11 @@
     <color name="colorGray1">#e7e9ea</color>
     <color name="colorGray2">#dbdfe1</color>
 
+    <color name="InfoColor">#484848</color>
+    <color name="InfoColor2">#3e3e3e</color>
+    <color name="InfoColorWhite">#8b8a8a</color>
+    <color name="InfoColorWhite2">#9b9898</color>
+
 
 
 

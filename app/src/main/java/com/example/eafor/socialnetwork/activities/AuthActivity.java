@@ -1,15 +1,22 @@
 package com.example.eafor.socialnetwork.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eafor.socialnetwork.R;
@@ -45,6 +52,12 @@ public class AuthActivity extends AppCompatActivity {
     public static String nickStr;      //nick of a current user
     public static SharedPreferences mySharedPref;
     public static boolean checkboxChecked;
+    public static boolean launchAuto = true;
+
+
+    static Dialog dialog;
+    Button btn_cancel, btn_ok;
+    TextView txt_quit;
 
 
     Intent intent;
@@ -89,7 +102,7 @@ public class AuthActivity extends AppCompatActivity {
 
         String savedLogin=mySharedPref.getString(KEY_LOGIN,"");
         String savedPass=mySharedPref.getString(KEY_PASSWORD,"");
-        if(!savedLogin.equals("")&!savedPass.equals("")){
+        if(!savedLogin.equals("")&!savedPass.equals("")&&launchAuto){
             serverStatus.logIn(savedLogin,savedPass);
         }
     }
@@ -117,8 +130,8 @@ public class AuthActivity extends AppCompatActivity {
             if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setText("offline");
             if(LogFragment.getServerStatusView()!=null) LogFragment.getServerStatusView().setTextColor(getResources().getColor(R.color.colorRedOffline));
             if(RegFragment.getServerStatusView()!=null) RegFragment.getServerStatusView().setTextColor(getResources().getColor(R.color.colorRedOffline));
-        }else{
-            //Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
+        }else if(a.startsWith("/wrong")){
+            Toast.makeText(this, a,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -133,6 +146,43 @@ public class AuthActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
 
+        makeLogoutDialog("Do you want to quit this app?");
+    }
 
+    public void makeLogoutDialog(String text){
+        dialog=new Dialog(this);
+        dialog.setContentView(R.layout.popup_logout);
+        dialog.setCanceledOnTouchOutside(true);
+        txt_quit=dialog.findViewById(R.id.text_quit);
+        txt_quit.setText(text);
+        btn_cancel=dialog.findViewById(R.id.button_cancel);
+        btn_ok=dialog.findViewById(R.id.button_quit);
+        btn_cancel.setOnClickListener(close());
+        btn_ok.setOnClickListener(logOut());
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    @NonNull
+    private View.OnClickListener logOut() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAffinity();
+            }
+        };
+    }
+
+    @NonNull
+    private static View.OnClickListener close() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        };
+    }
 }

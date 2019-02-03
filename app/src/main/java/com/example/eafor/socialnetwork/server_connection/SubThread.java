@@ -54,6 +54,7 @@ public class SubThread implements Runnable {
                             intent=new Intent(mainActivity, AuthActivity.class);
                             mainActivity.startActivity(intent);
                             oneTime=false;
+                            stop();
                             break block;
                         }
                     }
