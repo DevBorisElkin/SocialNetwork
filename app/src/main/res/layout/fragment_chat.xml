@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,19 +13,37 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="CHAT" />
-        <TextView
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="9"
+            android:text=""
+            android:textSize="17dp"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="CHAT" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="CHAT" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="91">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Enter your message"
+                android:layout_gravity="center_vertical" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_circle"
+                android:text="send"
+                android:textColor="@color/colorPrimaryDark_2"
+                android:id="@+id/button_send"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>
