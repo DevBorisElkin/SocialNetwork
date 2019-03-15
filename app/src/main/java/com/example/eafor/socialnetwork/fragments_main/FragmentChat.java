@@ -26,7 +26,7 @@ public class FragmentChat extends Fragment_custom {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_chat, container, false);
 
-
+//turnaround
 
     return view;
     }
