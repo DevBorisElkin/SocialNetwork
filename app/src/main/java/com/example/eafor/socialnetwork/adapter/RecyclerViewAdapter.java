@@ -62,6 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             viewHolder.userStatus.setTextColor(mContext.getResources().getColor(R.color.colorGreenOnline));
         }else{
             viewHolder.userStatus.setText(TimeManager.parseString(listUserData.get(i).last_online));
+            viewHolder.userStatus.setTextColor(mContext.getResources().getColor(R.color.colorGray1));
         }
 
     }
