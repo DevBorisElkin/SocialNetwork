@@ -97,8 +97,14 @@ public class ServerStatus {
                             auth_activity.launchActivity();
                             setAuthorized(true);
                             break;
+                        } else if (str.startsWith("user_was_added")) {
+                            String[] tokens = str.split(" ");
+                            AuthActivity.nickStr=tokens[1];
+                            auth_activity.launchActivity();
+                            setAuthorized(true);
+                            break;
                         } else {
-                                sendMsgToMain(str);
+                            sendMsgToMain(str);
                         }
                     }
                     while (true) {
