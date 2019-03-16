@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentMessage fragmentMessage         = new FragmentMessage();
     FragmentProfile fragmentProfile         = new FragmentProfile();
     FragmentDefinedUser fragmentDefinedUser = new FragmentDefinedUser();
-    public static UserData oneUserData;  //Данные одного пользователя
+    public static UserData oneUserData;  //Данные одного пользователя.
     public static boolean allowUpdate=true;
     public static int chosenUserId = 0;
     public static boolean definedUserOpened=false;
